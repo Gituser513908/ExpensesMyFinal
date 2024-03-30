@@ -15,6 +15,12 @@ export default function App() {
     const navigation = useNavigation();//for navigation
     const [myPBO, setMyPBO] = useState(null);//hold my playnack object
 
+    const [expenseAmount, setExpenseAmount] = useState('');// to hold expense amount spend 
+    const [dateExpense, setDateExpense] = useState('');// store date the expense happened
+    const [descriptionOfExpense, setDescriptionOfExpense] = useState('');// store the note of what was the expense
+    const [expensesList, setExpensesList] = useState([]);// array to have all expenses
+    const [modalShow, setModalShow] = useState(false); // to show add expese page on top of current page
+
     const fileName = 'statefile.json'; // file name to store state
 
 
