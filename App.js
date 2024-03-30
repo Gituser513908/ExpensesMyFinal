@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import Styles from '../styles/page-styles';
+import DateTimePicker from ' @react-native-community/datetimepicker'; // date picker from expo
 
 export default function App() {
 
