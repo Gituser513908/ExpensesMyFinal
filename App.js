@@ -86,8 +86,10 @@ export default function App() {
             );
             // convert it to an object
             const storedExpensesList = JSON.parse(storedExpensesListString);
+
             // set expenses list with stored array
             setExpensesList(storedExpensesList);
+
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
             // probably there wasn't a saved state, so make one for next time?
