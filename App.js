@@ -71,7 +71,7 @@ export default function App() {
     }
 
 
-    //save state inspired from Stephen's expo example
+    //save to file inspired from Stephen's expo example
 
     /**
     * This function will load a json string of all the saved data 
@@ -81,14 +81,13 @@ export default function App() {
     const loadState = async () => {
         try {
             // get the string
-            const currentStateString = await FileSystem.readAsStringAsync(
+            const storedExpensesListString = await FileSystem.readAsStringAsync(
                 FileSystem.documentDirectory + fileName
             );
             // convert it to an object
-            currentState = JSON.parse(currentStateString)
-            // extract all the saved states
-            setPetHappy(currentState.happy);
-            setImage(currentState.image);
+            const storedExpensesList = JSON.parse(storedExpensesListString);
+            // set expenses list with stored array
+            setExpensesList(storedExpensesList);
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
             // probably there wasn't a saved state, so make one for next time?
@@ -101,17 +100,22 @@ export default function App() {
      */
     const saveState = async () => {
         // build an object of everything we are saving
-        const currentState = { "happy": petHappy, "image": image };
+        const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense};
 
+        const updateExpensesList = [...expensesList, currentExpense];// add current expense to expenses array
         try {
             // write the stringified object to the save file
             await FileSystem.writeAsStringAsync(
                 FileSystem.documentDirectory + fileName,
-                JSON.stringify(currentState)
+                JSON.stringify(updateExpensesList)
             );
 
-            //alert state saved successfully
-            Alert.alert('Success', 'State saved successfully!');
+            setExpensesList(updateExpensesList); //set the array with updated expense list
+            setExpenseAmount(''); //clear amount box
+            setDateExpense(''); // clear date 
+            setDescriptionOfExpense('');// clear description
+            setModalShow(false);// hide add expense page
+            
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
