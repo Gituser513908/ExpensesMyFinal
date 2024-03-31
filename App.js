@@ -6,7 +6,7 @@
  * Date - 2024-03-30
  * 
  * Description - Keep track of your expenses, add them, edit them and delete them easy.
- * shows total amount of expenses  to scare you or not
+ * shows total amount of expenses  to scare you or not.
  * 
  * Inspiration
  * 
@@ -25,7 +25,7 @@
 
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
+import { Alert, Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
 import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
@@ -131,6 +131,19 @@ export default function App() {
      * This function will save the data as a json string 
      */
     const saveExpenses = async () => {
+
+
+        // if any fileds empty dont save and give user a alert
+
+        if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
+
+            // show alert to notify user
+            Alert.alert('All fields are required', 'Please fill all fields before saving.');
+
+            return; 
+        }
+
+
         // build an object of everything we are saving
         const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense };
 
@@ -164,7 +177,10 @@ export default function App() {
 
         for (const expense of expensesList) {
 
-            total += parseFloat(expense.amount);
+            const amount = parseFloat(expense.amount);
+            
+                total += amount;
+            
         }
         return total;
     };
@@ -230,21 +246,28 @@ export default function App() {
 
               <Divider />
 
-              <FlatList
-                  data={expensesList.slice(0).reverse()} // Reverese order
-                  keyExtractor={(item, index) => index.toString()} // index of array to string
-                  renderItem={({ item }) => (
-                      <Card style={Styles.expenseCard}>
-                          <Card.Content>
-                              <Text style={Styles.expenseDescription}>{item.description}</Text>
-                              <View style={Styles.expenseDateAmount}>
-                                  <Text>{item.date}</Text>
-                                  <Text>${item.amount}</Text>
-                              </View>
-                          </Card.Content>
-                      </Card>
-                  )}
-              />
+              {expensesList.length > 0 && (
+
+                  <FlatList
+                      data={expensesList.slice(0).reverse()} // Reverese order
+                      keyExtractor={(item, index) => index.toString()} // index of array to string
+                      renderItem={({ item }) => (
+                          <Card style={Styles.expenseCard}>
+                              <Card.Content>
+                                  <Text style={Styles.expenseDescription}>{item.description}</Text>
+                                  <View style={Styles.expenseDateAmount}>
+                                      <Text>{item.date}</Text>
+                                      <Text>${item.amount}</Text>
+                                  </View>
+                              </Card.Content>
+                          </Card>
+                      )}
+                  />
+              
+              
+              
+              )}
+              
 
 
           </View>
@@ -289,6 +312,7 @@ export default function App() {
                                   placeholder="Date"
                                   value={dateExpense}
                                   onChangeText={setDateExpense}
+                                  editable={false}
                               />
                           </Pressable>
 
@@ -301,11 +325,17 @@ export default function App() {
                           placeholder="Description"
                           value={descriptionOfExpense}
                           onChangeText={setDescriptionOfExpense}
-                          editable={false }
+                         
                       />
+                     
                       <Button mode="contained" onPress={saveExpenses} style={Styles.modalButton}>
                           Add Expense
                       </Button>
+
+                      <Button mode="contained" onPress={() => setModalShow(false)} style={Styles.modalButton}>
+                          Cancel
+                      </Button>
+
                   </View>
               </Modal>
           </Portal>
