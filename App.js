@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TetxtInput, View, Modal, Vibration, Pressable } from 'react-native';
+import { Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
 import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
@@ -8,22 +8,24 @@ import {
     Portal, IconButton, Card
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
-import Styles from '../styles/page-styles';
-import DateTimePicker from ' @react-native-community/datetimepicker'; // date picker from expo
+import Styles from './styles/page-styles';
+import DateTimePicker from '@react-native-community/datetimepicker'; // date picker from expo
 
 export default function App() {
 
-    const navigation = useNavigation();//for navigation
-    const [myPBO, setMyPBO] = useState(null);//hold my playnack object
+
+   // const [myPBO, setMyPBO] = useState(null);//hold my playnack object
 
     const [expenseAmount, setExpenseAmount] = useState('');// to hold expense amount spend 
     const [dateExpense, setDateExpense] = useState('');// store date the expense happened
+    const [showDatePicker, setShowDatePicker] = useState(false);// state of date picker
     const [descriptionOfExpense, setDescriptionOfExpense] = useState('');// store the note of what was the expense
     const [expensesList, setExpensesList] = useState([]);// array to have all expenses
     const [modalShow, setModalShow] = useState(false); // to show add expese page on top of current page
 
     const fileName = 'statefile.json'; // file name to store state
 
+    /** 
 
     //load a sound into the PBO 
     const loadSound = async () => {
@@ -33,11 +35,11 @@ export default function App() {
 
             const soundObj = new Audio.Sound()
 
-            await soundObj.loadAsync(angryGorillaSound)
+            await soundObj.loadAsync()
 
             setMyPBO(soundObj)
 
-            
+
 
 
 
@@ -55,7 +57,7 @@ export default function App() {
 
             await myPBO.playAsync();
 
-            
+
 
         } catch (e) {
             console.log(e);
@@ -67,10 +69,10 @@ export default function App() {
 
         await myPBO.unloadAsync();
 
-       
+
 
     }
-
+    */
 
     //save to file inspired from Stephen's expo example
 
@@ -79,7 +81,7 @@ export default function App() {
     * We assume that the file is good
     * We assume that all the required object parts are present
     */
-    const loadState = async () => {
+    const loadExpenses = async () => {
         try {
             // get the string
             const storedExpensesListString = await FileSystem.readAsStringAsync(
@@ -94,16 +96,16 @@ export default function App() {
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
             // probably there wasn't a saved state, so make one for next time?
-            saveState();
+            saveExpenses();
         }
     }
 
     /**
      * This function will save the data as a json string 
      */
-    const saveState = async () => {
+    const saveExpenses = async () => {
         // build an object of everything we are saving
-        const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense};
+        const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense };
 
         const updateExpensesList = [...expensesList, currentExpense];// add current expense to expenses array
         try {
@@ -118,32 +120,117 @@ export default function App() {
             setDateExpense(''); // clear date 
             setDescriptionOfExpense('');// clear description
             setModalShow(false);// hide add expense page
-            
+
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
     }
 
 
+    //toatl expenses function
+    // for loop to go over all expneses in expensesList array
+    // total + each amount to float 
+    // get toatl of expenses
+    const totalExpensesAmount = () => {
+
+        let total = 0;
+
+        for (const expense of expensesList) {
+
+            total += parseFloat(expense.amount);
+        }
+        return total;
+    };
 
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
 
-        loadState();
-        loadSound();
+        loadExpenses();
+       // loadSound();
 
         return () => {
-            unloadPBO(); // unload the sound on component unmount
+           // unloadPBO(); // unload the sound on component unmount
         };
 
     }, []);
 
 
   return (
-    <View style={Styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <Provider>
+          <View style={Styles.mainPage }>
+            
+              <View style={Styles.header}>
+                  <Text style={Styles.allExpenseText}>All Expenses</Text>
+                  <IconButton
+                      icon="plus"
+                      onPress={() => setModalVisible(true)}
+                  />
+              </View>
+              
+              <Card style={Styles.totalCard}>
+                  <Card.Content>
+                      <Text style={Styles.totalText}>Total Expenses</Text>
+                      <Text style={Styles.totalAmount}>${totalExpensesAmount()}</Text>
+                  </Card.Content>
+              </Card>
+
+              <Divider />
+
+              <FlatList
+                  data={expensesList.slice(0).reverse()} // Reverese order
+                  keyExtractor={(item, index) => index.toString()} // index of array to string
+                  renderItem={({ item }) => (
+                      <Card style={Styles.expenseCard}>
+                          <Card.Content>
+                              <Text style={Styles.expenseDescription}>{item.description}</Text>
+                              <View style={Styles.expenseDateAmount}>
+                                  <Text>{item.date}</Text>
+                                  <Text>${item.amount}</Text>
+                              </View>
+                          </Card.Content>
+                      </Card>
+                  )}
+              />
+
+
+          </View>
+
+          <Portal>
+              <Modal
+                  animationType="slide"
+                  transparent={false}
+                  visible={modalShow}
+                  onRequestClose={() => setModalShow(false)}
+              >
+                  <View style={Styles.modalContainer}>
+                      <Text style={Styles.modalTitle}>Add Expense</Text>
+                      <TextInput
+                          style={Styles.input}
+                          placeholder="Amount"
+                          keyboardType="numeric"
+                          value={expenseAmount}
+                          onChangeText={text => setExpenseAmount(text)}
+                      />
+                      <TextInput
+                          style={Styles.input}
+                          placeholder="Date"
+                          value={dateExpense}
+                          onChangeText={text => setDate(text)}
+                      />
+                      <TextInput
+                          style={Styles.input}
+                          placeholder="Description"
+                          value={descriptionOfExpense}
+                          onChangeText={text => setDescriptionOfExpense(text)}
+                      />
+                      <Button mode="contained" onPress={saveExpenses} style={Styles.modalButton}>
+                          Add Expense
+                      </Button>
+                  </View>
+              </Modal>
+          </Portal>
+
+      </Provider>
   );
 }
 
