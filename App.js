@@ -6,7 +6,7 @@
  * Date - 2024-03-30
  * 
  * Description - Keep track of your expenses, add them, edit them and delete them easy.
- * shows total to scare you or not
+ * shows total amount of expenses  to scare you or not
  * 
  * Inspiration
  * 
