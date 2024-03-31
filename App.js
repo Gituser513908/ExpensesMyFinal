@@ -183,6 +183,16 @@ export default function App() {
 
         if (type == "set") {
 
+            const currentDate = selectedDate; // date is set make curretnDate = selected date
+
+            setDate(currentDate); // set date picker date to current date
+
+            toggleDatepicker(); //
+
+            setDateExpense(currentDate.toDateString()); // make expense date to be selected date
+
+        } else {
+            toggleDatepicker(); // hide it
         }
     };
 
@@ -207,7 +217,7 @@ export default function App() {
                   <Text style={Styles.allExpenseText}>All Expenses</Text>
                   <IconButton
                       icon="plus"
-                      onPress={() => setModalVisible(true)}
+                      onPress={() => setModalShow(true)}
                   />
               </View>
               
@@ -255,34 +265,43 @@ export default function App() {
                           placeholder="Amount"
                           keyboardType="numeric"
                           value={expenseAmount}
-                          onChangeText={text => setExpenseAmount(text)}
+                          onChangeText={ setExpenseAmount}
                       />
 
                       <Text style={Styles.lable}>Date</Text>
 
                       {showDatePicker && (
                           <DateTimePicker
-                          mode="date"
-                          display="spinner"
-                          value={date}
-
+                              mode="date"
+                              display="spinner"
+                              value={date}
+                              onChange={onChange}
+                              maximumDate={new Date() }
                       />
                       )}
-                     
 
-                      <TextInput
-                          style={Styles.input}
-                          placeholder="Date"
-                          value={dateExpense}
-                          onChangeText={text => setDate(text)}
-                      />
+                      {!showDatePicker && (
+                          <Pressable
+                              onPress={toggleDatepicker}
+                          >
+                              <TextInput
+                                  style={Styles.input}
+                                  placeholder="Date"
+                                  value={dateExpense}
+                                  onChangeText={setDateExpense}
+                              />
+                          </Pressable>
+
+                      ) }
+                      
 
                       <Text style={Styles.lable}>Description</Text>
                       <TextInput
                           style={Styles.input}
                           placeholder="Description"
                           value={descriptionOfExpense}
-                          onChangeText={text => setDescriptionOfExpense(text)}
+                          onChangeText={setDescriptionOfExpense}
+                          editable={false }
                       />
                       <Button mode="contained" onPress={saveExpenses} style={Styles.modalButton}>
                           Add Expense
