@@ -1,3 +1,28 @@
+/**
+ * Final Project - Expense Tracker
+ * 
+ * Author: Rajan Chaudhari
+ * 
+ * Date - 2024-03-30
+ * 
+ * Description - Keep track of your expenses, add them, edit them and delete them easy.
+ * shows total to scare you or not
+ * 
+ * Inspiration
+ * 
+ * Stephen Graham's in class examples - Thanks Stephen
+ * 
+ * Design idea from
+ * 
+ * Expense Tracker:  https://github.com/N1k0l1n/Expense-Tracker-React-Native-App.git
+ * 
+ * Date picker idea from : 
+ * 
+ * Using Date Picker with TextInput (Expo | React Native App) - ToThePointCode youtube channale
+ * 
+ * 
+ */
+
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
@@ -10,6 +35,7 @@ import {
 import * as FileSystem from 'expo-file-system';
 import Styles from './styles/page-styles';
 import DateTimePicker from '@react-native-community/datetimepicker'; // date picker from expo
+
 
 export default function App() {
 
