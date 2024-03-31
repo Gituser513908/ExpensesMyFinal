@@ -44,6 +44,7 @@ export default function App() {
 
     const [expenseAmount, setExpenseAmount] = useState('');// to hold expense amount spend 
     const [dateExpense, setDateExpense] = useState('');// store date the expense happened
+    const [date, setDate] = useState(new Date());// set date from date picker
     const [showDatePicker, setShowDatePicker] = useState(false);// state of date picker
     const [descriptionOfExpense, setDescriptionOfExpense] = useState('');// store the note of what was the expense
     const [expensesList, setExpensesList] = useState([]);// array to have all expenses
@@ -52,7 +53,7 @@ export default function App() {
     const fileName = 'statefile.json'; // file name to store state
 
     /** 
-
+     * 
     //load a sound into the PBO 
     const loadSound = async () => {
 
@@ -168,6 +169,23 @@ export default function App() {
         return total;
     };
 
+
+    //date picker toggeling function to handle show it or not
+
+    const toggleDatepicker = () => {
+
+        setShowDatePicker(!showDatePicker); // if visible hide it vice versa
+    };
+
+    // handle chnage of value of date picker
+
+    const onChange = ({type }, selectedDate) => {
+
+        if (type == "set") {
+
+        }
+    };
+
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
 
@@ -230,6 +248,8 @@ export default function App() {
               >
                   <View style={Styles.modalContainer}>
                       <Text style={Styles.modalTitle}>Add Expense</Text>
+
+                      <Text style={Styles.lable }>Amount</Text>
                       <TextInput
                           style={Styles.input}
                           placeholder="Amount"
@@ -237,12 +257,27 @@ export default function App() {
                           value={expenseAmount}
                           onChangeText={text => setExpenseAmount(text)}
                       />
+
+                      <Text style={Styles.lable}>Date</Text>
+
+                      {showDatePicker && (
+                          <DateTimePicker
+                          mode="date"
+                          display="spinner"
+                          value={date}
+
+                      />
+                      )}
+                     
+
                       <TextInput
                           style={Styles.input}
                           placeholder="Date"
                           value={dateExpense}
                           onChangeText={text => setDate(text)}
                       />
+
+                      <Text style={Styles.lable}>Description</Text>
                       <TextInput
                           style={Styles.input}
                           placeholder="Description"
