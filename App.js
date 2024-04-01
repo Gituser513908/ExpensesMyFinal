@@ -151,8 +151,17 @@ export default function App() {
             //set the expenses list to new array
             setExpensesList(updatedExpensesList);
 
-            //save it
-            saveExpenses();
+            //save the new array to file
+           
+            try {
+                await FileSystem.writeAsStringAsync(
+                    FileSystem.documentDirectory + fileName,
+                    JSON.stringify(updatedExpensesList)
+                );
+            } catch (e) {
+                console.log(FileSystem.documentDirectory + fileName + e);
+            }
+            
 
             //clear updating item
             setUpdatingExpenseItem(null);
@@ -166,7 +175,7 @@ export default function App() {
             return;
         }
 
-        // if any fileds empty dont save and give user a alert
+        // if any fileds empty dont save
 
         if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
 
@@ -249,8 +258,13 @@ export default function App() {
 
     const updateExpense = (item) => {
 
+        // get expense item based on the index
+        const index = expensesList[item];
+
         //which item to update
-        setUpdatingExpenseItem(item);
+        setUpdatingExpenseItem(index);
+
+
 
         //set the data from item in the input boxes
         setExpenseAmount(item.amount);
@@ -315,11 +329,11 @@ export default function App() {
                   <FlatList
                       data={expensesList.slice(0).reverse()} // Reverese order
                       keyExtractor={(item, index) => index.toString()} // index of array to string
-                      renderItem={({ item }) => (
+                      renderItem={({ item, index }) => (
 
                           <Pressable
 
-                              onPress={() => updateExpense(item)}// on press edit the expense
+                              onPress={() => updateExpense(index)}// on press edit the expense
                               onLongPress={() => deleteExpense(item) } // on long press delee the expense
 
                           >
