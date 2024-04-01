@@ -49,6 +49,8 @@ export default function App() {
     const [descriptionOfExpense, setDescriptionOfExpense] = useState('');// store the note of what was the expense
     const [expensesList, setExpensesList] = useState([]);// array to have all expenses
     const [modalShow, setModalShow] = useState(false); // to show add expese page on top of current page
+    const [isUpdatingExpense, setIsUpdatingExpense] = useState(false);// to keep track if updating the exisitng expense
+    const [updatingExpenseItem, setUpdatingExpenseItem] = useState(null);// keep track of the updating ecpense item
 
     const fileName = 'statefile.json'; // file name to store state
 
@@ -133,13 +135,42 @@ export default function App() {
     const saveExpenses = async () => {
 
 
+        //if upating item is not null
+        if (updatingExpenseItem !== null) {
+
+            //create new array from exisitng expenses list
+            const updatedExpensesList = [...expensesList];
+
+            //update new array at index of item which was updated
+            updatedExpensesList[updatingExpenseItem] = {
+                amount: expenseAmount,
+                date: dateExpense,
+                description: descriptionOfExpense
+            };
+
+            //set the expenses list to new array
+            setExpensesList(updatedExpensesList);
+
+            //save it
+            saveExpenses();
+
+            //clear updating item
+            setUpdatingExpenseItem(null);
+
+            //set is updating to false
+            setIsUpdatingExpense(false);
+
+            //hide modal
+            setModalShow(false);
+
+            return;
+        }
+
         // if any fileds empty dont save and give user a alert
 
         if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
 
-            // show alert to notify user
-            Alert.alert('All fields are required', 'Please fill all fields before saving.');
-
+           
             return; 
         }
 
@@ -218,14 +249,16 @@ export default function App() {
 
     const updateExpense = (item) => {
 
-        
+        //which item to update
+        setUpdatingExpenseItem(item);
 
         //set the data from item in the input boxes
         setExpenseAmount(item.amount);
         setDateExpense(item.date);
         setDescriptionOfExpense(item.description);
+        setIsUpdatingExpense(true);// set updating expnse to true
         setModalShow(true);// show the modal
-
+       
     };
 
     //delete expense function
@@ -286,8 +319,8 @@ export default function App() {
 
                           <Pressable
 
-                              onPress={() => updateExpense(index)}// on press edit the expense
-                              onLongPress={() => deleteExpense(index) } // on long press delee the expense
+                              onPress={() => updateExpense(item)}// on press edit the expense
+                              onLongPress={() => deleteExpense(item) } // on long press delee the expense
 
                           >
 
@@ -337,7 +370,7 @@ export default function App() {
                       {showDatePicker && (
                           <DateTimePicker
                               mode="date"
-                              display="spinner"
+                              display="calender"
                               value={date}
                               onChange={onChange}
                               maximumDate={new Date() }
@@ -370,7 +403,7 @@ export default function App() {
                       />
                      
                       <Button mode="contained" onPress={saveExpenses} style={Styles.modalButton}>
-                          Add Expense
+                          {isUpdatingExpense ? 'Update Expense' : 'Add Expense'}
                       </Button>
 
                       <Button mode="contained" onPress={() => setModalShow(false)} style={Styles.modalButton}>
