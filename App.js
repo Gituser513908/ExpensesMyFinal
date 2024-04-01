@@ -187,14 +187,14 @@ export default function App() {
 
 
     //date picker toggeling function to handle show it or not
-
+    // from toThePointCode
     const toggleDatepicker = () => {
 
         setShowDatePicker(!showDatePicker); // if visible hide it vice versa
     };
 
     // handle chnage of value of date picker
-
+    // from toThePointCode
     const onChange = ({type }, selectedDate) => {
 
         if (type == "set") {
@@ -203,13 +203,44 @@ export default function App() {
 
             setDate(currentDate); // set date picker date to current date
 
-            toggleDatepicker(); //
+            toggleDatepicker(); //show it
 
             setDateExpense(currentDate.toDateString()); // make expense date to be selected date
 
         } else {
+
             toggleDatepicker(); // hide it
         }
+    };
+
+
+    //update expense function
+
+    const updateExpense = (item) => {
+
+        
+
+        //set the data from item in the input boxes
+        setExpenseAmount(item.amount);
+        setDateExpense(item.date);
+        setDescriptionOfExpense(item.description);
+        setModalShow(true);// show the modal
+
+    };
+
+    //delete expense function
+    const deleteExpense = (item) => {
+
+        // create a new array leav out the the one need to be deleted 
+        const updatedExpensesList = expensesList.filter(expense => expense !== item);
+
+        // Update expenses list
+        setExpensesList(updatedExpensesList);
+
+        // Save  updated expenses list
+        saveExpenses();
+
+
     };
 
     // This effect hook will load the state, sound and unload when closed
@@ -252,6 +283,14 @@ export default function App() {
                       data={expensesList.slice(0).reverse()} // Reverese order
                       keyExtractor={(item, index) => index.toString()} // index of array to string
                       renderItem={({ item }) => (
+
+                          <Pressable
+
+                              onPress={() => updateExpense(index)}// on press edit the expense
+                              onLongPress={() => deleteExpense(index) } // on long press delee the expense
+
+                          >
+
                           <Card style={Styles.expenseCard}>
                               <Card.Content>
                                   <Text style={Styles.expenseDescription}>{item.description}</Text>
@@ -261,6 +300,8 @@ export default function App() {
                                   </View>
                               </Card.Content>
                           </Card>
+                        </Pressable>
+
                       )}
                   />
               
