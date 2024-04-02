@@ -138,6 +138,15 @@ export default function App() {
         //if upating item is not null
         if (updatingExpenseItem !== null) {
 
+
+            // if any fileds empty dont save
+
+            if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
+
+
+                return;
+            }
+
             //create new array from exisitng expenses list
             const updatedExpensesList = [...expensesList];
 
@@ -151,8 +160,21 @@ export default function App() {
             //set the expenses list to new array
             setExpensesList(updatedExpensesList);
 
+            //clear updating item
+            setUpdatingExpenseItem(null);
+
+            //set is updating to false
+            setIsUpdatingExpense(false);
+
+            setExpenseAmount(''); //clear amount box
+            setDateExpense(''); // clear date 
+            setDescriptionOfExpense('');// clear description
+
+            //hide modal
+            setModalShow(false);
+
             //save the new array to file
-           
+
             try {
                 await FileSystem.writeAsStringAsync(
                     FileSystem.documentDirectory + fileName,
@@ -161,50 +183,44 @@ export default function App() {
             } catch (e) {
                 console.log(FileSystem.documentDirectory + fileName + e);
             }
-            
 
-            //clear updating item
-            setUpdatingExpenseItem(null);
 
-            //set is updating to false
-            setIsUpdatingExpense(false);
 
-            //hide modal
-            setModalShow(false);
 
-            return;
+
+        } else {
+            // create new object
+            // if any fileds empty dont save
+
+            if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
+
+
+                return;
+            }
+
+
+            // build an object of everything we are saving
+            const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense };
+
+            const updateExpensesList = [...expensesList, currentExpense];// add current expense to expenses array
+            try {
+                // write the stringified object to the save file
+                await FileSystem.writeAsStringAsync(
+                    FileSystem.documentDirectory + fileName,
+                    JSON.stringify(updateExpensesList)
+                );
+
+                setExpensesList(updateExpensesList); //set the array with updated expense list
+                setExpenseAmount(''); //clear amount box
+                setDateExpense(''); // clear date 
+                setDescriptionOfExpense('');// clear description
+                setModalShow(false);// hide add expense page
+
+            } catch (e) {
+                console.log(FileSystem.documentDirectory + fileName + e);
+            }
         }
-
-        // if any fileds empty dont save
-
-        if (!expenseAmount || !dateExpense || !descriptionOfExpense) {
-
-           
-            return; 
-        }
-
-
-        // build an object of everything we are saving
-        const currentExpense = { "amount": expenseAmount, "date": dateExpense, "description": descriptionOfExpense };
-
-        const updateExpensesList = [...expensesList, currentExpense];// add current expense to expenses array
-        try {
-            // write the stringified object to the save file
-            await FileSystem.writeAsStringAsync(
-                FileSystem.documentDirectory + fileName,
-                JSON.stringify(updateExpensesList)
-            );
-
-            setExpensesList(updateExpensesList); //set the array with updated expense list
-            setExpenseAmount(''); //clear amount box
-            setDateExpense(''); // clear date 
-            setDescriptionOfExpense('');// clear description
-            setModalShow(false);// hide add expense page
-
-        } catch (e) {
-            console.log(FileSystem.documentDirectory + fileName + e);
-        }
-    }
+    };
 
 
     //toatl expenses function
@@ -285,7 +301,14 @@ export default function App() {
         setExpensesList(updatedExpensesList);
 
         // Save  updated expenses list
-        saveExpenses();
+        try {
+            await FileSystem.writeAsStringAsync(
+                FileSystem.documentDirectory + fileName,
+                JSON.stringify(updatedExpensesList)
+            );
+        } catch (e) {
+            console.log(FileSystem.documentDirectory + fileName + e);
+        }
 
 
     };
