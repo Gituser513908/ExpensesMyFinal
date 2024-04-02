@@ -160,18 +160,7 @@ export default function App() {
             //set the expenses list to new array
             setExpensesList(updatedExpensesList);
 
-            //clear updating item
-            setUpdatingExpenseItem(null);
-
-            //set is updating to false
-            setIsUpdatingExpense(false);
-
-            setExpenseAmount(''); //clear amount box
-            setDateExpense(''); // clear date 
-            setDescriptionOfExpense('');// clear description
-
-            //hide modal
-            setModalShow(false);
+           
 
             //save the new array to file
 
@@ -184,8 +173,21 @@ export default function App() {
                 console.log(FileSystem.documentDirectory + fileName + e);
             }
 
+            //clear updating item
+            setUpdatingExpenseItem(null);
 
+            //set is updating to false
+            setIsUpdatingExpense(false);
 
+            setExpenseAmount(''); //clear amount box
+            setDateExpense(''); // clear date 
+            setDescriptionOfExpense('');// clear description
+           
+            //hide modal
+            setModalShow(false);
+
+            //load again
+            loadExpenses();
 
 
         } else {
@@ -214,11 +216,15 @@ export default function App() {
                 setExpenseAmount(''); //clear amount box
                 setDateExpense(''); // clear date 
                 setDescriptionOfExpense('');// clear description
+                
                 setModalShow(false);// hide add expense page
 
             } catch (e) {
                 console.log(FileSystem.documentDirectory + fileName + e);
             }
+
+            //load again
+            loadExpenses();
         }
     };
 
@@ -272,14 +278,13 @@ export default function App() {
 
     //update expense function
 
-    const updateExpense = (item) => {
-
-        // get expense item based on the index
-        const index = expensesList[item];
+    const updateExpense = (index) => {
 
         //which item to update
         setUpdatingExpenseItem(index);
 
+        // get expense item based on the index
+        const item = expensesList[index];
 
 
         //set the data from item in the input boxes
@@ -292,7 +297,7 @@ export default function App() {
     };
 
     //delete expense function
-    const deleteExpense = (item) => {
+    const deleteExpense = async (item) => {
 
         // create a new array leav out the the one need to be deleted 
         const updatedExpensesList = expensesList.filter(expense => expense !== item);
@@ -334,7 +339,12 @@ export default function App() {
                   <Text style={Styles.allExpenseText}>All Expenses</Text>
                   <IconButton
                       icon="plus"
-                      onPress={() => setModalShow(true)}
+                      onPress={() => {
+
+                          setIsUpdatingExpense(false);
+                          setModalShow(true);
+
+                      }}
                   />
               </View>
               
@@ -350,7 +360,7 @@ export default function App() {
               {expensesList.length > 0 && (
 
                   <FlatList
-                      data={expensesList.slice(0).reverse()} // Reverese order
+                      data={expensesList} // eaxpeses
                       keyExtractor={(item, index) => index.toString()} // index of array to string
                       renderItem={({ item, index }) => (
 
