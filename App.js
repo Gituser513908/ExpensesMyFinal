@@ -339,13 +339,19 @@ export default function App() {
                   <Text style={Styles.allExpenseText}>All Expenses</Text>
                   <IconButton
                       //+ btn to show modal to add expnse
-                       //set updating to false and show modal to true
+                      //set updating to false and show modal to true
+                      //reset any data 
+                       // make index null so it add insted of updating 
                       icon="plus"
                       onPress={() => {
 
                           setIsUpdatingExpense(false);
                           setModalShow(true);
-
+                          setExpenseAmount('');
+                          setDateExpense('');
+                          setDescriptionOfExpense('');
+                          setUpdatingExpenseItem(null);
+                          setDate(new Date());
                       }}
                   />
               </View>
