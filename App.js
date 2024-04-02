@@ -280,7 +280,7 @@ export default function App() {
 
     const updateExpense = (index) => {
 
-        //which item to update
+        //which item to update its index in array
         setUpdatingExpenseItem(index);
 
         // get expense item based on the index
@@ -338,6 +338,8 @@ export default function App() {
               <View style={Styles.header}>
                   <Text style={Styles.allExpenseText}>All Expenses</Text>
                   <IconButton
+                      //+ btn to show modal to add expnse
+                       //set updating to false and show modal to true
                       icon="plus"
                       onPress={() => {
 
@@ -358,7 +360,7 @@ export default function App() {
               <Divider />
 
               {expensesList.length > 0 && (
-
+                  //when expnse list has 1 entry show the expenses 
                   <FlatList
                       data={expensesList} // eaxpeses
                       keyExtractor={(item, index) => index.toString()} // index of array to string
@@ -370,8 +372,9 @@ export default function App() {
                               onLongPress={() => deleteExpense(item) } // on long press delee the expense
 
                           >
-
+                            
                           <Card style={Styles.expenseCard}>
+                                
                               <Card.Content>
                                   <Text style={Styles.expenseDescription}>{item.description}</Text>
                                   <View style={Styles.expenseDateAmount}>
@@ -394,27 +397,31 @@ export default function App() {
           </View>
 
           <Portal>
+          
               <Modal
-                  animationType="slide"
-                  transparent={false}
-                  visible={modalShow}
-                  onRequestClose={() => setModalShow(false)}
+                  animationType="slide"// show modal silde in
+                  transparent={false}// not transperent
+                  visible={modalShow}// visible when modalShow is true
+                  onRequestClose={() => setModalShow(false)}// on lcose hide modal
               >
                   <View style={Styles.modalContainer}>
-                      <Text style={Styles.modalTitle}>Add Expense</Text>
+                      <Text style={Styles.modalTitle}>{isUpdatingExpense ? 'Update Expense' : 'Add Expense'}</Text>
 
                       <Text style={Styles.lable }>Amount</Text>
                       <TextInput
                           style={Styles.input}
                           placeholder="Amount"
                           keyboardType="numeric"
-                          value={expenseAmount}
-                          onChangeText={ setExpenseAmount}
+                          value={expenseAmount}// expnse amount to be stored
+                          onChangeText={ setExpenseAmount}// set the expnse amount to the value
                       />
 
                       <Text style={Styles.lable}>Date</Text>
 
                       {showDatePicker && (
+                          //showDatePicker true then show calender to select
+                          //type is calender
+                          //max date will be todays as dont want to have future dates in expnses
                           <DateTimePicker
                               mode="date"
                               display="calender"
@@ -423,8 +430,12 @@ export default function App() {
                               maximumDate={new Date() }
                       />
                       )}
-
+                      
                       {!showDatePicker && (
+                          //showDatepicker is false
+                          //show the text box with selected date
+                          //pressed againg show the date picker
+                          //not editable
                           <Pressable
                               onPress={toggleDatepicker}
                           >
@@ -442,6 +453,7 @@ export default function App() {
 
                       <Text style={Styles.lable}>Description</Text>
                       <TextInput
+                      //Description of expnse
                           style={Styles.input}
                           placeholder="Description"
                           value={descriptionOfExpense}
@@ -449,7 +461,13 @@ export default function App() {
                          
                       />
                      
-                      <Button mode="contained" onPress={saveExpenses} style={Styles.modalButton}>
+                      <Button
+                          //if updating the expnse show Update expnse text  else show add expense
+                      //save the expnse
+                          mode="contained"
+                          onPress={saveExpenses}
+                          style={Styles.modalButton}>
+                         
                           {isUpdatingExpense ? 'Update Expense' : 'Add Expense'}
                       </Button>
 
