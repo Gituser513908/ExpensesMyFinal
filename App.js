@@ -248,6 +248,7 @@ export default function App() {
     };
 
 
+
     //date picker toggeling function to handle show it or not
     // from toThePointCode
     const toggleDatepicker = () => {
@@ -398,7 +399,29 @@ export default function App() {
               
               )}
               
+              <Divider />
+              <View style={Styles.bottom}>
+              
+                  <IconButton
+                      //weather btn
+                      icon="weather-sunny"
+                      mode="contained"
+                      lable="Weather"
+                      style={Styles.bottomBtns }
 
+                  /> 
+
+                  <IconButton
+                      //reset btn
+                      icon="refresh"
+                      mode="contained"
+                      lable="Reset"
+                      style={Styles.bottomBtns}
+
+                 />
+
+
+              </View>
 
           </View>
 

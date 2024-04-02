@@ -106,7 +106,19 @@ const styles = StyleSheet.create({
 
     },
    
-   
+    bottom: {
+
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 10,
+        paddingHorizontal: 20,
+    },
+
+    bottomBtns: {
+        flex: 1,
+        marginHorizontal: 5,
+    },
 
    
 
