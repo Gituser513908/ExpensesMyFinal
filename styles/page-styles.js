@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20
+        padding: 30,
+        paddingTop: 35,
+        paddingBottom: -10
        
     },
 
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
 
     totalCard: {
 
-        margin: 20,
+        margin: 15,
     },
 
     totalText: {

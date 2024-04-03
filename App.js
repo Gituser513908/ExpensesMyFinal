@@ -8,7 +8,7 @@
  * Description - Keep track of your expenses, add them, edit them and delete them easy.
  * shows total amount of expenses  to scare you or not.
  * 
- * Inspiration
+ * Inspirations
  * 
  * Stephen Graham's in class examples - Thanks Stephen
  * 
@@ -20,6 +20,8 @@
  * 
  * Using Date Picker with TextInput (Expo | React Native App) - ToThePointCode youtube channale
  * 
+ * React native Paper - https://callstack.github.io/react-native-paper/docs/components/ActivityIndicator
+ * 
  * 
  */
 
@@ -30,12 +32,12 @@ import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
     Button, List, Divider, PaperProvider,
-    Portal, IconButton, Card
+     IconButton, Card
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import Styles from './styles/page-styles';
 import DateTimePicker from '@react-native-community/datetimepicker'; // date picker from expo
-
+import { WebView } from 'react-native-webview'; 
 
 export default function App() {
 
@@ -49,8 +51,10 @@ export default function App() {
     const [descriptionOfExpense, setDescriptionOfExpense] = useState('');// store the note of what was the expense
     const [expensesList, setExpensesList] = useState([]);// array to have all expenses
     const [modalShow, setModalShow] = useState(false); // to show add expese page on top of current page
+    const [webModalShow, SetWebModalShow] = useState(false);// to show weather modal
     const [isUpdatingExpense, setIsUpdatingExpense] = useState(false);// to keep track if updating the exisitng expense
     const [updatingExpenseItem, setUpdatingExpenseItem] = useState(null);// keep track of the updating ecpense item
+    const webUrl = 'https:\\google.ca';// store url to be used in web view modal
 
     const fileName = 'statefile.json'; // file name to store state
 
@@ -400,26 +404,29 @@ export default function App() {
               )}
               
               <Divider />
+
               <View style={Styles.bottom}>
 
                   <View style={Styles.iconView }>
                   <IconButton
-                      //weather btn
-                      icon="weather-sunny"
-                      mode="contained"
+                      //web search btn
+                          icon="web"
+                          mode="contained"
+                          onPress={() => { SetWebModalShow(true);  } }
+
                       
                       style={Styles.bottomBtns }
 
                   /> 
-                  <Text >Weather</Text>
+                  <Text >Web</Text>
               
                </View>
              
                   <View style={Styles.iconView}>
 
                   <IconButton
-                      //reset btn
-                      icon="refresh"
+                      //delete btn
+                      icon="delete"
                       mode="contained"
                       
                       style={Styles.bottomBtns}
@@ -433,9 +440,11 @@ export default function App() {
 
           </View>
 
-          <Portal>
           
-              <Modal
+          
+          <Modal
+              //add/update expneses page
+
                   animationType="slide"// show modal silde in
                   transparent={false}// not transperent
                   visible={modalShow}// visible when modalShow is true
@@ -514,7 +523,25 @@ export default function App() {
 
                   </View>
               </Modal>
-          </Portal>
+
+
+          <Modal
+
+          // web View modal
+              animationType="slide"// show modal silde in
+              transparent={false}// not transperent
+              visible={webModalShow}// visible when webModalShow is true
+              onRequestClose={() => SetWebModalShow(false)}// on close hide modal
+
+          >
+              <WebView
+
+                  source={{ uri: webUrl}}
+             />
+
+
+          </Modal>
+         
 
       </PaperProvider>
   );
