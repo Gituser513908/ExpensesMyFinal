@@ -115,8 +115,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
 
+    iconView: {
+        alignItems: 'center',
+
+    },
     bottomBtns: {
-        flex: 1,
+       
         marginHorizontal: 5,
     },
 

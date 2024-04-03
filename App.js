@@ -29,7 +29,7 @@ import { Alert, Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, 
 import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
-    Button, List, Divider, Provider,
+    Button, List, Divider, PaperProvider,
     Portal, IconButton, Card
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
@@ -333,7 +333,7 @@ export default function App() {
 
 
   return (
-      <Provider>
+      <PaperProvider>
           <View style={Styles.mainPage }>
             
               <View style={Styles.header}>
@@ -401,25 +401,33 @@ export default function App() {
               
               <Divider />
               <View style={Styles.bottom}>
-              
+
+                  <View style={Styles.iconView }>
                   <IconButton
                       //weather btn
                       icon="weather-sunny"
                       mode="contained"
-                      lable="Weather"
+                      
                       style={Styles.bottomBtns }
 
                   /> 
+                  <Text >Weather</Text>
+              
+               </View>
+             
+                  <View style={Styles.iconView}>
 
                   <IconButton
                       //reset btn
                       icon="refresh"
                       mode="contained"
-                      lable="Reset"
+                      
                       style={Styles.bottomBtns}
 
                  />
+                      <Text >Delete All</Text>
 
+                  </View>
 
               </View>
 
@@ -508,7 +516,7 @@ export default function App() {
               </Modal>
           </Portal>
 
-      </Provider>
+      </PaperProvider>
   );
 }
 
