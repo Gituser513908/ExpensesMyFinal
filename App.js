@@ -80,13 +80,12 @@ export default function App() {
 
             await soundObj.loadAsync(sound)
 
-            setMyPBO(soundObj)
+           await setMyPBO(soundObj)
 
-            // play sound
-           
+            if (myPBO) {
 
                 await myPBO.playAsync();
-            
+            }
             
 
         } catch (error) {
@@ -99,7 +98,10 @@ export default function App() {
     //unload a pbo
     const unloadPBO = async () => {
 
-        await myPBO.unloadAsync();
+        if (myPBO) {
+
+            await myPBO.unloadAsync();
+        }
 
 
 
@@ -396,7 +398,7 @@ export default function App() {
     }, []);
 
 
-
+   
 
 
 
