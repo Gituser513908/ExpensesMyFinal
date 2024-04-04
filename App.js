@@ -304,7 +304,7 @@ export default function App() {
     //delete expense function
     const deleteExpense = async (item) => {
 
-        // create a new array leav out the the one need to be deleted 
+        // create a new array leav out the  one need to be deleted 
         const updatedExpensesList = expensesList.filter(expense => expense !== item);
 
         // Update expenses list
@@ -322,6 +322,51 @@ export default function App() {
 
 
     };
+
+    //Delete all expenses
+
+    const deleteAll = () => {
+
+        // Show  alert to confirm deletetion 
+        Alert.alert(
+            'Delete All Expenses',
+            'Are you sure you want to delete all expenses?',
+            [
+                {
+                    text: 'Cancel',
+                    
+                },
+                {
+                    text: 'Delete',
+                    onPress: async () => {
+                        // Set expenses list to an empty array
+                        setExpensesList([]);
+
+
+                        // Save empty array
+                        try {
+                            await FileSystem.writeAsStringAsync(
+                                FileSystem.documentDirectory + fileName,
+                                JSON.stringify([])
+                            );
+                        } catch (e) {
+                            console.log(FileSystem.documentDirectory + fileName + e);
+                        }
+                    },
+                   
+                }
+            ],
+            {
+
+                //by tapping outside of alert box it can be  dissmissed
+                cancelable: true,
+            }
+        );
+
+        //load expeses list
+        loadExpenses();
+
+    }
 
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
@@ -428,7 +473,7 @@ export default function App() {
                       //delete btn
                       icon="delete"
                       mode="contained"
-                      
+                          onPress={() => { deleteAll(); } }
                       style={Styles.bottomBtns}
 
                  />
