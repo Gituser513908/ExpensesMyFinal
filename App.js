@@ -26,12 +26,11 @@
  */
 
 import { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Alert, Stylesheet, Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
+import { Alert,Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
 import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
-    Button, List, Divider, PaperProvider,
+    Button, Divider, PaperProvider,
      IconButton, Card
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
@@ -227,7 +226,7 @@ export default function App() {
                 console.log(FileSystem.documentDirectory + fileName + e);
             }
 
-            //load again
+            //load expenses again
             loadExpenses();
         }
     };
@@ -309,6 +308,9 @@ export default function App() {
 
         // Update expenses list
         setExpensesList(updatedExpensesList);
+
+        //vibrate when deletd
+        Vibration.vibrate();
 
         // Save  updated expenses list
         try {
