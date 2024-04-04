@@ -6,7 +6,7 @@
  * Date - 2024-03-30
  * 
  * Description - Keep track of your expenses, add them, edit them and delete them easy.
- * shows total amount of expenses  to scare you or not.
+ * shows total amount of expenses  to scare you or not. Plays sound when app is loaded and when dlete it vibrates too yey
  * 
  * Inspirations
  * 
@@ -22,7 +22,7 @@
  * 
  * React native Paper - https://callstack.github.io/react-native-paper/docs/components/ActivityIndicator
  * 
- * 
+ * sound from -Sound Effect by TheoJT from Pixabay https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=131354
  */
 
 import { useState, useEffect } from 'react';
@@ -41,7 +41,7 @@ import { WebView } from 'react-native-webview';
 export default function App() {
 
 
-   // const [myPBO, setMyPBO] = useState(null);//hold my playnack object
+    const [myPBO, setMyPBO] = useState(null);//hold my playnack object
 
     const [expenseAmount, setExpenseAmount] = useState('');// to hold expense amount spend 
     const [dateExpense, setDateExpense] = useState('');// store date the expense happened
@@ -53,48 +53,38 @@ export default function App() {
     const [webModalShow, SetWebModalShow] = useState(false);// to show weather modal
     const [isUpdatingExpense, setIsUpdatingExpense] = useState(false);// to keep track if updating the exisitng expense
     const [updatingExpenseItem, setUpdatingExpenseItem] = useState(null);// keep track of the updating ecpense item
+
     const webUrl = 'https:\\google.ca';// store url to be used in web view modal
+    const sound = require('./assets/beat.mp3');// sound to play when app loads
 
     const fileName = 'statefile.json'; // file name to store state
 
-    /** 
-     * 
+     
+     
     //load a sound into the PBO 
-    const loadSound = async () => {
+    const loadplaySound = async () => {
 
         try {
 
 
             const soundObj = new Audio.Sound()
 
-            await soundObj.loadAsync()
+            await soundObj.loadAsync(sound)
 
             setMyPBO(soundObj)
 
+            // play sound
 
+            await myPBO.playAsync();
 
-
+            
 
         } catch (error) {
             console.log(error);
         }
     }
 
-    //play a pbo
-    const playPBO = async () => {
-
-        try {
-
-
-
-            await myPBO.playAsync();
-
-
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
+   
 
     //unload a pbo
     const unloadPBO = async () => {
@@ -104,7 +94,7 @@ export default function App() {
 
 
     }
-    */
+    
 
     //save to file inspired from Stephen's expo example
 
@@ -370,17 +360,28 @@ export default function App() {
 
     }
 
+
+
+
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
-
+        loadplaySound();
         loadExpenses();
-       // loadSound();
+
+        // Unload the sound after 6 seconds
+        setTimeout(async () => {
+            unloadPBO();
+        }, 5000);
 
         return () => {
-           // unloadPBO(); // unload the sound on component unmount
+            unloadPBO(); // unload the sound on component unmount
         };
 
     }, []);
+
+
+
+
 
 
   return (
