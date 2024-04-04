@@ -31,7 +31,7 @@ import { Link, useNavigation, } from 'expo-router';
 import { Audio } from 'expo-av';
 import {
     Button, Divider, PaperProvider,
-     IconButton, Card
+    IconButton, Card, useTheme, MD3LightTheme as DefaultTheme,
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import Styles from './styles/page-styles';
@@ -57,9 +57,18 @@ export default function App() {
     const webUrl = 'https:\\google.ca';// store url to be used in web view modal
     const sound = require('./assets/beat.mp3');// sound to play when app loads
 
-    const fileName = 'statefile.json'; // file name to store state
+    const fileName = 'expensesfile.json'; // file name to store state
 
-     
+
+
+    //theme of app
+    const theme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            primary: '#663399', // Adjust primary color 
+        },
+    };
      
     //load a sound into the PBO 
     const loadplaySound = async () => {
@@ -74,9 +83,10 @@ export default function App() {
             setMyPBO(soundObj)
 
             // play sound
+           
 
-            await myPBO.playAsync();
-
+                await myPBO.playAsync();
+            
             
 
         } catch (error) {
@@ -95,6 +105,7 @@ export default function App() {
 
     }
     
+
 
     //save to file inspired from Stephen's expo example
 
@@ -222,6 +233,7 @@ export default function App() {
     };
 
 
+
     //toatl expenses function
     // for loop to go over all expneses in expensesList array
     // total + each amount to float 
@@ -290,6 +302,7 @@ export default function App() {
        
     };
 
+
     //delete expense function
     const deleteExpense = async (item) => {
 
@@ -315,9 +328,10 @@ export default function App() {
 
     };
 
+
     //Delete all expenses
 
-    const deleteAll = () => {
+    const deleteAll = async () => {
 
         // Show  alert to confirm deletetion 
         Alert.alert(
@@ -361,20 +375,22 @@ export default function App() {
     }
 
 
-
+   
 
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
+
         loadplaySound();
+
         loadExpenses();
 
-        // Unload the sound after 6 seconds
-        setTimeout(async () => {
-            unloadPBO();
-        }, 5000);
+       
 
         return () => {
-            unloadPBO(); // unload the sound on component unmount
+            if (myPBO) {
+
+                unloadPBO(); // unload the sound on component unmount
+            }
         };
 
     }, []);
@@ -385,7 +401,7 @@ export default function App() {
 
 
   return (
-      <PaperProvider>
+      <PaperProvider theme={theme}>
           <View style={Styles.mainPage }>
             
               <View style={Styles.header}>

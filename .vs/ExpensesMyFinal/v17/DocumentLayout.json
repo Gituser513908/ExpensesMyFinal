@@ -40,9 +40,10 @@
               "RelativeDocumentMoniker": "styles\\page-styles.js",
               "ToolTip": "C:\\repos\\ExpensesMyFinal\\styles\\page-styles.js",
               "RelativeToolTip": "styles\\page-styles.js",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAmwBUAAAAXAAAA",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAmwBUAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-03-31T21:58:37.265Z"
+              "WhenOpened": "2024-03-31T21:58:37.265Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -52,7 +53,7 @@
               "RelativeDocumentMoniker": "App.js",
               "ToolTip": "C:\\repos\\ExpensesMyFinal\\App.js",
               "RelativeToolTip": "App.js",
-              "ViewState": "AQIAAGoBAAAAAAAAAAAqwHUBAAAMAAAA",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAwwFgAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-03-31T21:54:55.68Z",
               "EditorCaption": ""
