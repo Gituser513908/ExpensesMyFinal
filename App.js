@@ -76,16 +76,16 @@ export default function App() {
         try {
 
 
-            const soundObj = new Audio.Sound()
+            const soundObj = new Audio.Sound();
 
-            await soundObj.loadAsync(sound)
+            await soundObj.loadAsync(sound);
 
-           await setMyPBO(soundObj)
+            
+            setMyPBO(soundObj);
+            
 
-            if (myPBO) {
-
-                await myPBO.playAsync();
-            }
+                 await soundObj.playAsync();
+            
             
 
         } catch (error) {
@@ -386,13 +386,11 @@ export default function App() {
 
         loadExpenses();
 
-       
+        
 
         return () => {
-            if (myPBO) {
 
-                unloadPBO(); // unload the sound on component unmount
-            }
+            unloadPBO();
         };
 
     }, []);
