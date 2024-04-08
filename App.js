@@ -327,7 +327,8 @@ export default function App() {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
 
-
+        //load expeses list
+        loadExpenses();
     };
 
 
@@ -350,6 +351,8 @@ export default function App() {
                         // Set expenses list to an empty array
                         setExpensesList([]);
 
+                        //vibrate when deletd
+                        Vibration.vibrate();
 
                         // Save empty array
                         try {
@@ -435,7 +438,7 @@ export default function App() {
               <Divider />
 
               {expensesList.length > 0 && (
-                  //when expnse list has 1 entry show the expenses 
+                  //when expnse list has 1 or more entry show the expenses 
                   <FlatList
                       data={expensesList} // eaxpeses
                       keyExtractor={(item, index) => index.toString()} // index of array to string
@@ -584,6 +587,8 @@ export default function App() {
                       <Button mode="contained" onPress={() => setModalShow(false)} style={Styles.modalButton}>
                           Cancel
                       </Button>
+
+                 
 
                   </View>
               </Modal>

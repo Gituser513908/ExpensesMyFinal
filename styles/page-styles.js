@@ -83,11 +83,7 @@ const styles = StyleSheet.create({
 
     },
 
-    lable: {
-
-       
-
-    },
+   
 
     input: {
 
