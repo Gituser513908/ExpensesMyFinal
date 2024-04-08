@@ -93,9 +93,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderColor: 'gray',
         borderWidth: 1,
-
+        borderRadius: 20,
     },
 
+    lable: {
+
+        fontWeight: 'bold',
+
+    },
    
 
     modalButton: {
