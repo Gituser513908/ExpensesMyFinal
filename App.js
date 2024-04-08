@@ -414,7 +414,7 @@ export default function App() {
                       //set updating to false and show modal to true
                       //reset any data 
                        // make index null so it add insted of updating 
-                      icon="plus"
+                      icon="plus-circle-outline"
                       onPress={() => {
 
                           setIsUpdatingExpense(false);
