@@ -415,6 +415,7 @@ export default function App() {
                       //reset any data 
                        // make index null so it add insted of updating 
                       icon="plus-circle-outline"
+                      size={30}
                       onPress={() => {
 
                           setIsUpdatingExpense(false);
