@@ -20,14 +20,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 30,
         paddingTop: 35,
-        paddingBottom: -10
+        paddingBottom: -10,
+        backgroundColor: '#663399'
        
     },
 
     allExpenseText: {
 
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:'white'
     },
 
     totalCard: {

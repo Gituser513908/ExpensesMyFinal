@@ -27,11 +27,11 @@
 
 import { useState, useEffect } from 'react';
 import { Alert,Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
-import { Link, useNavigation, } from 'expo-router';
+
 import { Audio } from 'expo-av';
 import {
     Button, Divider, PaperProvider,
-    IconButton, Card, useTheme, MD3LightTheme as DefaultTheme,
+    IconButton, Card,
 } from 'react-native-paper';
 import * as FileSystem from 'expo-file-system';
 import Styles from './styles/page-styles';
@@ -61,14 +61,7 @@ export default function App() {
 
 
 
-    //theme of app
-    const theme = {
-        ...DefaultTheme,
-        colors: {
-            ...DefaultTheme.colors,
-            primary: '#663399', // Adjust primary color 
-        },
-    };
+    
      
     //load a sound into the PBO 
     const loadplaySound = async () => {
@@ -404,7 +397,7 @@ export default function App() {
 
 
   return (
-      <PaperProvider theme={theme}>
+      <PaperProvider>
           <View style={Styles.mainPage }>
             
               <View style={Styles.header}>
@@ -416,6 +409,7 @@ export default function App() {
                        // make index null so it add insted of updating 
                       icon="plus-circle-outline"
                       size={30}
+                      iconColor="white"
                       onPress={() => {
 
                           setIsUpdatingExpense(false);
