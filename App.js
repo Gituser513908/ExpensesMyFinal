@@ -23,7 +23,13 @@
  * React native Paper - https://callstack.github.io/react-native-paper/docs/components/ActivityIndicator
  * 
  * sound from -Sound Effect by TheoJT from Pixabay https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=131354
+ * 
+ * Splash from - https://www.vecteezy.com/vector-art/11648904-rc-monogram-initial-logo-with-shield-and-crown-style
+ * 
+ * Dollor Icon from - "https://www.flaticon.com/free-icons/dollars" Dollars icons created by fancykeith 
+ * 
  */
+
 
 import { useState, useEffect } from 'react';
 import { Alert,Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
@@ -454,8 +460,12 @@ export default function App() {
                                       <Text>{item.date}</Text>
                                       <Text>${item.amount}</Text>
                                   </View>
+
                               </Card.Content>
+
                           </Card>
+
+
                         </Pressable>
 
                       )}
