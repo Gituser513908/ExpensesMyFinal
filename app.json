@@ -2,7 +2,7 @@
   "expo": {
     "name": "My Expenses",
     "slug": "MyExpenses",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,9 +19,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/dollars.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "ca.RajanChaudhari.MyExpenses",
+      "versionCode": 1001
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +31,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "router-demo"
+    "scheme": "router-demo",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9a94bae3-f382-4dbe-9c54-21d303784826"
+      }
+    }
   }
 }

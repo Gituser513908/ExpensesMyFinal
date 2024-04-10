@@ -33,7 +33,7 @@
 
 import { useState, useEffect } from 'react';
 import { Alert,Text, TextInput, View, Modal, Vibration, Pressable, FlatList } from 'react-native';
-
+import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 import {
     Button, Divider, PaperProvider,
@@ -404,7 +404,9 @@ export default function App() {
 
   return (
       <PaperProvider>
-          <View style={Styles.mainPage }>
+          <View style={Styles.mainPage}>
+
+              <StatusBar style="auto" />
             
               <View style={Styles.header}>
                   <Text style={Styles.allExpenseText}>All Expenses</Text>
