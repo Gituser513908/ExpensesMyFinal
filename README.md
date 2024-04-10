@@ -1,4 +1,4 @@
-My Expense app by Rajan Chaudhari
+**My Expense app by Rajan Chaudhari**
 
 **Description:**
 
@@ -19,7 +19,7 @@ Plays sound when loads and virates when deleteing a expense.
 
 **Delete all btn:** Deletes all expenses. use it wisely
 
-**Dependencies**
+**Extra Dependencies**
 
 -> **Expo-av :** npx expo install expo-av
 
@@ -31,7 +31,7 @@ Plays sound when loads and virates when deleteing a expense.
     npm install react-native-safe-area-context
     npm install react-native-vector-icons
 
-->** @react-native-community/datetimepicker :** npx expo install @react-native-community/datetimepicker
+->**react-native-community/datetimepicker :** npx expo install @react-native-community/datetimepicker
 
 ->**react-native-webview :** npx expo install react-native-webview 
 
