@@ -31,6 +31,8 @@ Plays sound when loads and virates when deleteing a expense.
     npm install react-native-safe-area-context
     npm install react-native-vector-icons
 
+->**expo-file-system :** npx expo install expo-file-system
+
 ->**react-native-community/datetimepicker :** npx expo install @react-native-community/datetimepicker
 
 ->**react-native-webview :** npx expo install react-native-webview 
