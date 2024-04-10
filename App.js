@@ -18,7 +18,7 @@
  * 
  * Date picker idea from : 
  * 
- * Using Date Picker with TextInput (Expo | React Native App) - ToThePointCode youtube channale
+ * Using Date Picker with TextInput (Expo | React Native App) - ToThePointCode youtube channale https://www.youtube.com/watch?v=UEfFjfW7Zes
  * 
  * React native Paper - https://callstack.github.io/react-native-paper/docs/components/ActivityIndicator
  * 

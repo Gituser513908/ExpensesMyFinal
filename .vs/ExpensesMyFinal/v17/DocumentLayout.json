@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\repos\\ExpensesMyFinal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\eas.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:eas.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repos\\ExpensesMyFinal\\styles\\page-styles.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -48,22 +48,22 @@
               "RelativeDocumentMoniker": "eas.json",
               "ToolTip": "C:\\repos\\ExpensesMyFinal\\eas.json",
               "RelativeToolTip": "eas.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAZAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-09T16:24:02.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-09T16:24:02.634Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "app.json",
               "DocumentMoniker": "C:\\repos\\ExpensesMyFinal\\app.json",
               "RelativeDocumentMoniker": "app.json",
               "ToolTip": "C:\\repos\\ExpensesMyFinal\\app.json",
               "RelativeToolTip": "app.json",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAUwBcAAAAIAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABkAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-08T19:06:31.392Z"
+              "WhenOpened": "2024-04-08T19:06:31.392Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -79,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "App.js",
               "DocumentMoniker": "C:\\repos\\ExpensesMyFinal\\App.js",
               "RelativeDocumentMoniker": "App.js",
@@ -87,8 +87,7 @@
               "RelativeToolTip": "App.js",
               "ViewState": "AQIAAGACAAAAAAAAAAAzwGsCAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-03-31T21:54:55.68Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-31T21:54:55.68Z"
             }
           ]
         }
